@@ -32,12 +32,13 @@ public class CommentService {
     @Transactional
     public Comment updateComment(Long id, Comment commentDetails) {
         return commentRepository.findById(id).map(comment -> {
-            comment.setPostId(commentDetails.getPostId());
-            comment.setUserId(commentDetails.getUserId());
+            comment.setPost(commentDetails.getPost());
+            comment.setUser(commentDetails.getUser());
             comment.setText(commentDetails.getText());
             return commentRepository.save(comment);
         }).orElseThrow(() -> new RuntimeException("Comment not found"));
     }
+
 
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);

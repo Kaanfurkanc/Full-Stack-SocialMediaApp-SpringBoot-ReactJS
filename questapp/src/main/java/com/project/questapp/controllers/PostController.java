@@ -1,6 +1,8 @@
 package com.project.questapp.controllers;
 
 import com.project.questapp.entities.Post;
+import com.project.questapp.requests.PostCreateRequest;
+import com.project.questapp.requests.PostUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        Post createdPost = postService.createPost(post);
+    public ResponseEntity<Post> createPost(@RequestBody PostCreateRequest newPostRequest) {
+        Post createdPost = postService.createPost(newPostRequest);
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }
 
@@ -34,13 +36,13 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
+    public ResponseEntity<List<Post>> getAllPosts(@PathVariable Optional<Long> userId) {
+        List<Post> posts = postService.getAllPosts(userId);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody PostUpdateRequest postDetails) {
         try {
             Post updatedPost = postService.updatePost(id, postDetails);
             return new ResponseEntity<>(updatedPost, HttpStatus.OK);
