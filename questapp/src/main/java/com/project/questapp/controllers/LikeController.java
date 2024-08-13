@@ -1,6 +1,7 @@
 package com.project.questapp.controllers;
 
 import com.project.questapp.entities.Like;
+import com.project.questapp.requests.LikeCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class LikeController {
     }
 
     @PostMapping
-    public ResponseEntity<Like> createLike(@RequestBody Like like) {
+    public ResponseEntity<Like> createLike(@RequestBody LikeCreateRequest like) {
         Like createdLike = likeService.createLike(like);
         return new ResponseEntity<>(createdLike, HttpStatus.CREATED);
     }
@@ -34,8 +35,8 @@ public class LikeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Like>> getAllLikes() {
-        List<Like> likes = likeService.getAllLikes();
+    public ResponseEntity<List<Like>> getAllLikes( @RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId) {
+        List<Like> likes = likeService.getAllLikes(userId, postId);
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 

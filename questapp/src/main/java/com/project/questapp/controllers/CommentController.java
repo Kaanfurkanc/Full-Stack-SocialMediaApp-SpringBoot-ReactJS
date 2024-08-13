@@ -1,6 +1,8 @@
 package com.project.questapp.controllers;
 
 import com.project.questapp.entities.Comment;
+import com.project.questapp.requests.CommentCreateRequest;
+import com.project.questapp.requests.CommentUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
+    public ResponseEntity<Comment> createComment(@RequestBody CommentCreateRequest comment) {
         Comment createdComment = commentService.createComment(comment);
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
     }
@@ -35,13 +37,14 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Comment>> getAllComments() {
-        List<Comment> comments = commentService.getAllComments();
+    public ResponseEntity<List<Comment>> getAllComments(@RequestParam Optional<Long> userId,
+                                                        @RequestParam Optional<Long> postId) {
+        List<Comment> comments = commentService.getAllComments(userId, postId);
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment commentDetails) {
+    public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody CommentUpdateRequest commentDetails) {
         try {
             Comment updatedComment = commentService.updateComment(id, commentDetails);
             return new ResponseEntity<>(updatedComment, HttpStatus.OK);
