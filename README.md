@@ -5,6 +5,7 @@ This repository contains full-stack web application. The Application name is 'As
 - ORM: Hibernate
 - Database: MySQL
 - Frontend: ReactJS
+- Styling: Material UI
 - Security: JWT
 - Containerization: Docker
 - Container Orchestration: Kubernetes
