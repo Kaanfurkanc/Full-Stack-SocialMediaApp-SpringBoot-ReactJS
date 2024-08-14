@@ -1,6 +1,11 @@
 import Post from '../Post/Post';
 import React, {useState, useEffect} from "react";
 import "./Home.scss";
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+
 function Home() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -27,15 +32,15 @@ function Home() {
         return <div>Loading...</div>
     } else {
         return (
-            <div className="container">
-            <h1>Homeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h1>
-            
-        
-
-                {posts.map(post => (
-                    <Post title= {post.title} text={post.text} ></Post>  
-                ))}
-                </div>
+            <Container maxWidth="md" sx={{ display:"flex", flexWrap:"wrap",flexDirection: 'column', justifyContent:"center", alignItems:"center", backgroundColor: '#f5f5f5', borderRadius: '8px', height: '100vh'}}>
+                <div className="container">
+                        {posts.map(post => (
+                                <Post title= {post.title} text={post.text} ></Post>
+                                
+                            ))}
+                
+                    </div>
+            </Container>
         );
     }
 }
